@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/modal/modal.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+            <div class="inner"></div>
+        </header>
+        <!-- //#header -->
+
+        <section id="visual"></section>
+        <!-- //#visual -->
+
+        <main id="container">
+            <section id="content">
+                <article>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam a ipsa perspiciatis! Reiciendis facilis excepturi ducimus odit, ex magnam quam aut similique quis nisi
+                        repudiandae fugit in ipsam maiores minus error vel dicta repellat maxime atque. Quasi eligendi quaerat a assumenda qui provident aliquam! Id, aut asperiores deserunt ad rerum
+                        quod fugit itaque consequatur unde libero quidem corrupti officiis quasi nemo et quam numquam facilis? Neque architecto tempora ea? Quasi quis doloribus impedit unde.
+                        Repudiandae fuga ut illum modi. Exercitationem, voluptas? Dolore velit in corporis doloremque. Et sed fugit soluta nobis ea, expedita unde culpa dolor eveniet sapiente
+                        reprehenderit ab a id tenetur nemo libero dolorum pariatur labore, sit laudantium laboriosam reiciendis quam aut officiis? Quibusdam porro adipisci ut doloremque similique,
+                        molestiae odit itaque tempore sunt minus incidunt eos dicta at dolor repudiandae neque. Quas ut quam autem, sequi provident quidem tenetur eius enim totam, distinctio ex natus
+                        ab tempore harum repellendus reprehenderit? Repellendus doloribus, necessitatibus magnam ratione cum obcaecati repudiandae officia cumque velit pariatur adipisci numquam ex
+                        doloremque accusantium soluta recusandae tenetur earum suscipit maxime. Aperiam maiores sint velit officia pariatur laborum sunt. Iste inventore voluptas ab repudiandae modi
+                        exercitationem consectetur, atque quidem labore neque iure officia impedit culpa ipsam recusandae repellendus sed quis, libero, ipsum amet natus vitae dolorum non! Optio in
+                        fugit cupiditate accusantium rerum maxime hic sint rem eligendi autem praesentium enim officiis libero nesciunt saepe illum ex veritatis provident, officia possimus culpa
+                        dolores accusamus incidunt. Obcaecati qui recusandae repudiandae ipsam veniam dolores laboriosam esse tempora rem voluptates iure consequatur odio doloremque, fuga officia iste
+                        eos non modi impedit nam tempore dicta cumque eum. Tenetur itaque repudiandae quas atque laboriosam. Similique corporis error voluptatum earum quo labore eveniet aliquam
+                        blanditiis hic totam dolorum aperiam quis officia dolore, praesentium in assumenda veritatis fugiat? Nobis, tenetur ipsum sit odit eaque dolor? Cumque commodi officiis
+                        consectetur dicta eveniet corporis ullam incidunt quidem vero veniam. Delectus aperiam distinctio maiores eaque velit animi nihil nesciunt. Delectus, repudiandae. Modi ipsum
+                        natus non ullam enim voluptatum officiis odit, optio aliquam ab eius deleniti ipsa dolorum molestias sapiente possimus architecto dolorem laudantium perspiciatis necessitatibus
+                        cumque debitis vel inventore veniam! Molestias laboriosam quibusdam explicabo? Earum obcaecati possimus sit harum repellendus eos, a nemo debitis quis quaerat ea aut, tempore
+                        amet quia non, autem quo maiores nam modi nobis consectetur recusandae velit dolorem ipsam! Nobis magni ipsam, reprehenderit accusantium autem, neque nam quos sequi corrupti
+                        distinctio facilis, error quisquam. Aperiam, rerum quam nesciunt similique non itaque aliquam eligendi maxime ullam omnis nostrum! Veritatis impedit corrupti fugit veniam quasi
+                        aperiam nostrum nihil similique laudantium iste. Nulla nobis culpa nostrum quibusdam tenetur, amet eveniet sed placeat quo atque minima nemo mollitia non ipsam? Ad officiis a
+                        reprehenderit, beatae enim, accusamus sunt libero est unde rem rerum maiores voluptate consequatur error, laboriosam exercitationem delectus ipsa. Ut aperiam animi non id nobis
+                        exercitationem recusandae blanditiis sed ipsam. Necessitatibus cum molestias consectetur quia enim inventore a hic iusto dolores et tempora quisquam rem sit vitae, quidem rerum
+                        nihil! Aliquid, suscipit? Explicabo?
+
+                    </p>
+                    <button id="modalAlert">alert팝업</button>
+                    <button id="modalContentDefault">content팝업 기본</button>
+                    <button id="modalContent">content팝업 여러개 multiful</button>
+
+                    <button id="modalContentAlert">content로 통합 multiful 조건</button>
+                </article>
+                <article></article>
+
+            </section>
+            <!-- //#content -->
+        </main>
+        <!-- //#container -->
+
+        <footer id="footer">
+            <div class="inner"></div>
+        </footer>
+        <!-- //#footer -->
+
+    </div>
+    <!-- //#wrap -->
+
+
+    <script src="/js/modal/modal.js"></script>
+    <script>
+
+        //alert팝업
+        document.querySelector('#modalAlert').addEventListener('click', () => {
+            const modal33 = new Modal();
+            modal33.showModal({
+                doWhat: 'confirm',
+                header: '아이디 찾기',
+                title: '선택하신 서비스를<br> 신청하시겠습니까?',
+                btn: {
+                    confirm: {
+                        text: '신청'
+                    },
+                },
+                custom: {
+                    size: 's',
+                    width: '600px'
+                },
+                confirmDoneCallBack: () => {
+                    //같은 modal33이라도 다른 modal
+                    // console.log(modal33.options.header)
+                    modal33.showModal({ //호출하는 순간 새로운 options
+                        doWhat: 'done',
+                        header: '이중alert',
+                        title: '확인',
+                        btn: {
+                            confirm: {
+                                text: '신청완료'
+                            }
+                        },
+                    });
+                },
+                cancelCallBack: function () {
+                    console.log('취소')
+                }
+            });
+        });
+
+
+
+
+
+
+        //modalContent  기본    Default
+        document.querySelector('#modalContentDefault').addEventListener('click', () => {
+            const modal = new Modal();
+            modal.showModal({
+                doWhat: 'confirm',
+                header: 'contentModal기본',
+                btn: {
+                    confirm: {
+                        text: '신청'
+                    }
+                },
+                content: `Lorem ips susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?
+                `,
+                //confirmDoneCallBack 없으면 기본 removeModal적용
+                // confirmDoneCallBack: function () {
+                //     console.log('확인')
+                // }
+            });
+        });
+
+
+
+        //content모달 바닥
+        document.querySelector('#modalContent').addEventListener('click', () => {
+            const modal = new Modal();
+            modal.showModal({
+                doWhat: 'confirm',
+                header: 'contentModal1',
+                btn: {
+                    confirm: {
+                        text: '신청'
+                    }
+                },
+                multi: true,
+                content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, cupiditate. Maiores, in? Error maxime, quibusdam eos illo voluptates et maiores porro inventore cupiditate a expedita accusantium, magnam deleniti iste non at impedit officiis aut! Quibusdam odio nam aperiam porro ipsum, est eveniet nesciunt mollitia delectus obcaecati eum consequuntur vitae, aliquam corrupti voluptatum asperiores nostrum praesentium incidunt culpa repellat dolores aspernatur, quia voluptatem. Nobis, incidunt vel? Aspernatur autem optio cupiditate est. Doloremque, provident alias. Modi voluptatum possimus non quos sapiente nisi qui voluptate consequuntur, ea esse natus, soluta ad ut magni impedit fugiat tempore accusamus, unde fuga suscipit ratione? Deleniti, commodi?
+                <button id="popMulti1"> 이중팝업</button>`,
+                confirmDoneCallBack: function () {
+                    const modal2 = new Modal();
+                    modal2.showModal({
+                        doWhat: 'confirm',
+                        header: '아이디 찾기',
+                        title: '선택하신 서비스를<br> 신청하시겠습니까?',
+                        btn: {
+                            confirm: {
+                                text: '신청'
+                            }
+                        },
+                        multi: true,
+                        confirmDoneCallBack: function () {
+                            modal2.removeModal();
+                        },
+                    });
+                },
+                cancelCallBack: function () {
+                    const modal2 = new Modal();
+                    modal2.showModal({
+                        doWhat: 'confirm',
+                        header: '팝업 닫기',
+                        title: '팝업을 닫으시겠습니까?',
+                        btn: {
+                            confirm: {
+                                text: '닫기'
+                            }
+                        },
+                        confirmDoneCallBack: function () {
+                            modal.removeModal();
+                        },
+                        cancelCallBack: function () {
+                            modal2.removeModal();
+                        }
+                    });
+                }
+            });
+        });
+
+        //content모달 - content모달 이중팝업2
+        document.querySelector('body').addEventListener('click', (e) => {
+            const this_ = e.target;
+            if (this_.localName == 'button' && this_.id == 'popMulti1') {
+                const modal = new Modal();
+                modal.showModal({
+                    doWhat: 'confirm',
+                    header: 'contentModal2',
+                    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, cupiditate. Maiores, in? Error maxime, quibusdam eos illo voluptates et maiores porro inventore cupiditate a expedita accusantium, magnam deleniti iste non at impedit officiis aut! Quibusdam odio nam aperiam porro ipsum, est eveniet nesciunt mollitia delectus obcaecati eum consequuntur vitae, aliquaolores aspernatur, quia voluptatem. Nobis, incidunt vel? Aspernatur autem optio cupiditate est. Doloremque, provident alias. Modi voluptatum possimus no<br><button id="popMulti2"> 이중팝업</button>',
+                    btn: {
+                        confirm: {
+                            text: '신청'
+                        }
+                    },
+                });
+            }
+        });
+
+        //content모달 - content모달 이중팝업2
+        document.querySelector('body').addEventListener('click', (e) => {
+            const this_ = e.target;
+            if (this_.localName == 'button' && this_.id == 'popMulti2') {
+                const modal = new Modal();
+                modal.showModal({
+                    doWhat: 'confirm',
+                    header: 'contentModal3',
+                    title: '3중 팝업',
+                    content: '<p>내용을 입력할수있다</p>',
+                    btn: {
+                        confirm: {
+                            text: '신청'
+                        }
+                    },
+                    multi: true,
+                    cancelCallBack: function () {
+                        const modal2 = new Modal();
+                        modal2.showModal({
+                            doWhat: 'confirm',
+                            header: '팝업 닫기',
+                            title: '팝업을 닫으시겠습니까?',
+                            btn: {
+                                confirm: {
+                                    text: '닫기'
+                                }
+                            },
+                            // confirmDoneCallBack: function () {
+                            //     modal.removeModal();
+                            // },
+                            // cancelCallBack: function () {
+                            //     modal2.removeModal();
+                            // }
+                        });
+                    }
+                });
+            }
+        });
+
+
+
+
+
+
+
+
+        //content모달 바닥
+        document.querySelector('#modalContentAlert').addEventListener('click', () => {
+            const modal = new Modal();
+            modal.showModal({
+                doWhat: 'confirm',
+                header: 'contentModal(alert도 포함)',
+                title: '제목',
+                // content: '내용요요요요내용ㅇㅇ',
+                btn: {
+                    confirm: {
+                        text: '신청'
+                    }
+                },
+                multi: true,
+                confirmDoneCallBack: function () {
+                    console.log('dfdffd')
+                },
+            });
+        });
+    </script>
+</body>
+
+</html>

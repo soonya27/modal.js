@@ -1,0 +1,141 @@
+/*--------------------------------------------------------------
+	( z-index설정값은 layout.css 최상단에서 전체적으로 확인이 가능합니다. )	  
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+    bg
+--------------------------------------------------------------*/
+.modal-bg {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.7;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+}
+
+.content-bg {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.7;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+}
+
+
+
+/*--------------------------------------------------------------
+    기본 레이아웃
+--------------------------------------------------------------*/
+:root {
+    --modal-default-color: #444555;
+    --modal-default-color--hover: #2e2f3c;
+}
+
+.modal-wrap {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: #fff;
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+.modal-wrap .pop-header {
+    display: flex;
+    align-items: center;
+    height: 67px;
+    min-height: 67px;
+    padding: 0 58px 0 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    /* default-bgcolor */
+    background-color: var(--modal-default-color);
+}
+
+.modal-wrap .btn-layerPop-close {
+    position: absolute;
+    right: 17px;
+    top: 17px;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.modal-wrap .layerPop-inner {
+    padding: 30px 22px;
+    font-size: 15px;
+}
+
+.modal-wrap .layerPop-inner .pop-title {
+    color: #000;
+    font-weight: 500;
+    text-align: center;
+}
+
+.modal-wrap .btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 57%;
+    margin: 25px auto 0;
+}
+
+.modal-wrap .btn-wrap button {
+    width: 50%;
+    max-width: 100%;
+    padding: 10px 0;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid #bbbcc3;
+    background-color: var(--modal-default-color);
+    transition: background-color 0.4s;
+}
+
+.modal-wrap .btn-wrap button:hover {
+    background-color: var(--modal-default-color--hover);
+}
+
+.modal-wrap .btn-wrap button.cancel {
+    background-color: #fafaff;
+    color: #444;
+}
+
+.modal-wrap .btn-wrap button:first-of-type {
+    margin-right: 0.3rem;
+}
+
+
+
+/*--------------------------------------------------------------
+    커스텀 레이아웃
+--------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+/*------------------------------------------------
+    contentModal
+------------------------------------------------*/
+.modal-wrap.content-modal {
+    width: 389px;
+    z-index: 10;
+}
