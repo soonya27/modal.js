@@ -70,12 +70,13 @@ class Modal {
         this.options = options;
         this.#makeDiv('content');
 
+        const optionsTitle = options?.title ? `<div class="pop-message">${options?.title || ''}</div>` : '';
         const modalHtml = ` <div class="pop-header">${options.header || ''}</div>
                             <button class="modal_btn btn-layerPop-close modalCancelIcon_content" type="button" id="">
                                 X
                             </button>
                             <div class="layerPop-inner">
-                                <div class="pop-message">${options.title || ''}</div>
+                                ${optionsTitle}
                                 <div class="pop-content">
                                     ${options.content || ''}
                                 </div>
