@@ -194,7 +194,11 @@ class Modal {
         const alertBg = document.createElement('div');
         alertModal.classList.add('modal-wrap');
         alertModal.classList.add(`${modal}-modal`);
-        alertModal.classList.add(this.options?.className);
+        const classNameList = this.options?.className.split(' ');
+        classNameList.forEach(function (item) {
+            alertModal.classList.add(item);
+        });
+
         alertBg.classList.add(`${modal}-bg`);
         this.modal = alertModal;
         this.bg = alertBg;
