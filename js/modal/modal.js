@@ -80,9 +80,9 @@ class Modal {
                                     ${options.content || ''}
                                 </div>
                                 <div class="btn-wrap">
-                                    <button class="modal_btn cancel modalCancel_content" id=""  style="display:none">${options.btn?.cancel?.text || '아니요'}</button>
-                                    <button class="modal_btn confirm default btnAlertConfirm_content" id=""  style="display:none">${options.btn?.confirm?.text || '확인'}</button>
-                                    <button class="modal_btn done default modalDone_content" id="" style="width:100%; display:none">${options.btn?.confirm?.text || '확인'}</button>
+                                    <button class="modal_btn cancel modalCancel_content ${options.btn?.cancel?.className || ''}" id=""  style="display:none">${options.btn?.cancel?.text || '아니요'}</button>
+                                    <button class="modal_btn confirm default btnAlertConfirm_content ${options.btn?.confirm?.className || ''}" id=""  style="display:none">${options.btn?.confirm?.text || '확인'}</button>
+                                    <button class="modal_btn done default modalDone_content ${options.btn?.confirm?.className || ''}" id="" style="width:100%; display:none">${options.btn?.confirm?.text || '확인'}</button>
                                 </div>
                             </div>`
         this.modal.innerHTML = modalHtml;
