@@ -169,7 +169,7 @@
                 },
                 content: `Lorem ips susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?susmcipit ratione? Deleniti, comodi?
                 `,
-                //confirmDoneCallBack 없으면 기본 removeModal적용
+                //confirmDoneCallBack 없으면 기본 remove적용
                 // confirmDoneCallBack: function () {
                 //     console.log('확인')
                 // }
@@ -205,7 +205,7 @@
                         },
                         multi: true,
                         confirmDoneCallBack: function () {
-                            modal2.removeModal();
+                            modal2.remove();
                         },
                     });
                 },
@@ -221,10 +221,10 @@
                             }
                         },
                         confirmDoneCallBack: function () {
-                            modal.removeModal();
+                            modal.remove();
                         },
                         cancelCallBack: function () {
-                            modal2.removeModal();
+                            modal2.remove();
                         }
                     });
                 }
@@ -276,12 +276,12 @@
                                     text: '닫기'
                                 }
                             },
-                            // confirmDoneCallBack: function () {
-                            //     modal.removeModal();
-                            // },
-                            // cancelCallBack: function () {
-                            //     modal2.removeModal();
-                            // }
+                            confirmDoneCallBack: function () {
+                                modal2.remove();
+                            },
+                            cancelCallBack: function () {
+                                // modal2.remove();
+                            }
                         });
                     }
                 });

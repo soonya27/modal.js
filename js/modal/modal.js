@@ -4,12 +4,13 @@
 * 작성자 : pyeon
 * 이중 모달시 const alertModal = new Modal(); 새로 지정필요
 
-* multi : true
---removeModal() 모달 닫기 기본  -> 이중모달시 기존모달 무조건 닫힘
+* multi : false (defualt)
+--remove() 기본 기존모달 무조건 닫힘
 
-* multi : false -> 이중모달시 기존모달 callBack option에 따라 조절가능
+* multi : true   -> 이중모달시 기존모달 callBack option에 따라 조절가능
 --confirmDoneCallBack, cancelCallBack 없을시 default버튼에  removeMdal() 적용
---callBack options 지정시 modal(변수달라질수있음).removeModal(); 로 해당 모달 제거해줘야함
+-- multi:true 여도 callback이 없으면 기본 닫힘
+--callBack options 지정시 modal(변수달라질수있음).remove(); 로 해당 모달 제거해줘야함
 
 * option 표 : https://docs.google.com/spreadsheets/d/1zzJNfwIMR7C1XvkGGnyNjaw3u_wrXxCPXGWsk3jLmSM/edit?usp=sharing
 */
@@ -31,7 +32,7 @@ modal.showModal({
         width :  '00px'        (optional)
     },
     multi : true/false   -> false면 callback에 상관없이  팝업 닫기/확인 버튼 클릭시 기존 modal닫힘
-                            true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 removeModal()필요
+                            true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 remove()필요
     confirmDoneCallBack: function () {   (optional) -> 확인버튼 
         modal.showAlertModal({
             doWhat: 'done',
@@ -128,7 +129,7 @@ class Modal {
             if (!options.confirmDoneCallBack && !options.cancelCallBack) {
                 modalBtnWrap.forEach((buttons) => {
                     buttons.addEventListener('click', () => {
-                        this.removeModal();
+                        this.remove();
                     });
                 });
             }
@@ -137,7 +138,7 @@ class Modal {
                 modalBtnWrap.forEach((buttons) => {
                     if (!buttons.className.includes('modalDone_content') && !buttons.className.includes('btnAlertConfirm_content')) {
                         buttons.addEventListener('click', () => {
-                            this.removeModal();
+                            this.remove();
                         });
                     }
                 });
@@ -147,7 +148,7 @@ class Modal {
                 modalBtnWrap.forEach((buttons) => {
                     if (!buttons.className.includes('modalCancel_content') && !buttons.className.includes('modalCancelIcon_content')) {
                         buttons.addEventListener('click', () => {
-                            this.removeModal();
+                            this.remove();
                         });
                     }
                 });
@@ -156,11 +157,11 @@ class Modal {
             //이중팝업X  -> 팝업이 자동 remove 후 새 팝업만 뜸
             modalBtnWrap.forEach((buttons) => {
                 buttons.addEventListener('click', () => {
-                    this.removeModal();
+                    this.remove();
                 });
             });
             this.modal.querySelector('.modalCancelIcon_content').addEventListener('click', () => {
-                this.removeModal();
+                this.remove();
             });
         }
 
@@ -170,13 +171,13 @@ class Modal {
         const alertBtnWrap = this.modal.querySelector('.layerPop-inner .btn-wrap');
         if (options.doWhat === 'confirm') {
             alertBtnWrap.querySelector('.btnAlertConfirm_content').addEventListener('click', options.confirmDoneCallBack);
-            if (options.cancelCallBack) {
-                alertBtnWrap.querySelector('.modalCancel_content').addEventListener('click', options.cancelCallBack); //취소/아니요버튼
-                this.modal.querySelector('.modalCancelIcon_content').addEventListener('click', options.cancelCallBack); //X닫기버튼
-            }
         } else {
             alertBtnWrap.querySelector('.modalDone_content').addEventListener('click', options.confirmDoneCallBack);
 
+        }
+        if (options.cancelCallBack) {
+            alertBtnWrap.querySelector('.modalCancel_content').addEventListener('click', options.cancelCallBack); //취소/아니요버튼
+            this.modal.querySelector('.modalCancelIcon_content').addEventListener('click', options.cancelCallBack); //X닫기버튼
         }
     }//showContentModal
 
@@ -222,7 +223,7 @@ class Modal {
         }
     }
 
-    removeModal = () => {
+    remove = () => {
         this.modal.remove();
         this.bg.remove();
 
