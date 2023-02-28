@@ -24,7 +24,7 @@ modal.showModal({
     title: '선택하신 서비스를<br> 신청하시겠습니까?',
     btn: {                 
         confirm: {
-            text: '신청'
+            text: '신청'  -> default : '확인'
         }
     },
     custom : {               
