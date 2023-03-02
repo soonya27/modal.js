@@ -19,17 +19,20 @@ modal.showModal({
     title: '선택하신 서비스를<br> 신청하시겠습니까?',
     btn: {                 
         confirm: {
-            text: '신청'  -> default : '확인'
+            text: '신청'  // -> default : '확인'
         }
     },
     custom : {               
         size : 's/m/l', 
-        width :  '00px'        (optional)
+        width :  '00px'      //  (optional)
     },
     multi : true/false   -> false면 callback에 상관없이  팝업 닫기/확인 버튼 클릭시 기존 modal닫힘
                             true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 remove()필요
-    confirmDoneCallBack: function () {   (optional) -> 확인버튼    //-> callBack이 없으면 모달 닫기 default
-        modal.showAlertModal({
+    confirmDoneCallBack: function () {   //(optional) -> 확인버튼    //-> callBack이 없으면 모달 닫기 default
+        //multi : true일때
+        modal.remove();  //기존 모달(modal) 닫기
+        const alertModal = new Modal();   //새 모달 객체 생성
+        alertModal.showAlertModal({
             doWhat: 'done',
             title: '확인',
             btn: {
@@ -39,7 +42,7 @@ modal.showModal({
             },
         })
     },
-    cancelCallBack: function () {    //-> callBack이 없으면 모달 닫기 default
+    cancelCallBack: function () {    ////(optional)  -> callBack이 없으면 모달 닫기 default
         console.log('취소')
     }
 });
