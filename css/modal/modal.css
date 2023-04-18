@@ -123,9 +123,48 @@
 /*--------------------------------------------------------------
     커스텀 레이아웃
 --------------------------------------------------------------*/
+.modal-wrap.content-modal {
+    border-radius: 5px;
+    overflow: hidden;
+}
 
+.modal-wrap .pop-header {
+    background-color: #fff;
+}
 
+.modal-wrap .btn-layerPop-close {
+    color: #dcdcdc;
+}
 
+.modal-wrap .layerPop-inner {
+    padding: 10px 22px 32px 22px;
+}
+
+.modal-wrap .pop-message {
+    font-size: 16px;
+    text-align: center;
+}
+
+.modal-wrap .btn-wrap {
+    width: 90%;
+    margin: 26px auto 0;
+}
+
+.modal-wrap .btn-wrap button {
+    box-shadow: #32333d24 0px 3px 8px 0px;
+}
+
+.modal-wrap .btn-wrap button {
+    background-color: #868795;
+}
+
+.modal-wrap .btn-wrap button:first-of-type {
+    margin-right: 10px;
+}
+
+.modal-wrap .btn-wrap button.cancel {
+    background-color: #ffffff;
+}
 
 
 
