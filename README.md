@@ -17,26 +17,27 @@ modal.showModal({
     doWhat: 'confirm/done',
     header: '아이디 찾기',
     title: '선택하신 서비스를<br> 신청하시겠습니까?',
-    btn: {             //    (optional)  -> default : 확인/아니요         
+    btn: {             //    (optional)  -> default text : "확인"/"아니요"         
         confirm: {
             text: '신청',
-            className : 'btn main' // (optional)
+            className : 'btn main' //여러개 가능 
         },
         cancel: {
             text: '닫기',
             className: 'close'
         }
     },
-    custom : {               
-        size : 's/m/l', 
-        width :  '00px'      //  (optional)
+    custom : {               //  (optional)
+        size : 's/m/l',      
+        width :  '00px'      
     },
     className: 'className1 className2',  //여러개 가능 
     multi : true/false,   //-> false면 callback에 상관없이  팝업 닫기/확인 버튼 클릭시 기존 modal닫힘
-                         //   true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 remove()필요
+                          //   true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 remove()필요
     confirmDoneCallBack: function () {   //(optional) -> 확인버튼    //-> callBack이 없으면 모달 닫기 default
-        //multi : true일때
-        modal.remove();  //기존 모달(modal) 닫기
+
+
+        modal.remove();  //multi : true일때 -> 기존 모달(modal) 닫기
         const alertModal = new Modal();   //새 모달 객체 생성
         alertModal.showAlertModal({
             doWhat: 'done',
@@ -48,7 +49,7 @@ modal.showModal({
             },
         })
     },
-    cancelCallBack: function () {    ////(optional)  -> callBack이 없으면 모달 닫기 default
+    cancelCallBack: function () {    ////(optional)  -> callBack이 없고 multi:false(default)면 모달 닫기 default
         console.log('취소')
     }
 });
