@@ -6,12 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/modal/modal.css">
+    <!-- <link rel="stylesheet" href="/css/modal/modal.css"> -->
     <!-- git에 올릴때 경로 -->
     <link rel="stylesheet" href="/modal.js/css/modal/modal.css">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs2015.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <style>
+    code {
+        font-size: 14px;
+    }
+
+    code .hljs-comment {
+        color: #ffd0d0;
+        font-style: normal;
+    }
+
+    .example1 {
+        width: 1200px;
+    }
+
+    .text-left {
+        text-align: left !important;
+    }
+
     /* table css */
     table {
         padding: 0;
@@ -25,11 +46,49 @@
         padding: 5px;
     }
 
-    .pre-table thead th {
-        border-bottom: 1px solid #333;
+    .pre-table {
+        width: 100%;
+        border: 1px solid #333;
     }
 
-    .pre-table thead th {}
+    .pre-table thead th {
+        background-color: #d6e4e4;
+        font-weight: bold;
+    }
+
+    .pre-table thead th,
+    .pre-table tbody td {
+        border-bottom: 1px solid #333;
+        border-right: 1px solid #333;
+        text-align: center;
+    }
+
+    .pre-table tbody td:first-child {
+        font-weight: 600;
+    }
+
+    .pre-table thead th:last-child,
+    .pre-table tbody td:last-child {
+        border-right: none;
+    }
+
+
+    .pre-table tbody tr:last-child>td {
+        border-bottom: none;
+    }
+
+
+    .pre-table tr .sub-table {
+        padding: 0;
+    }
+
+    .pre-table tr .sub-table table {
+        border: none;
+    }
+
+    .wTitle {
+        width: 20%;
+    }
 </style>
 
 <body>
@@ -44,45 +103,319 @@
 
         <main id="container">
             <section id="content">
+                <h1>Options</h1>
+                <table class="pre-table">
+                    <colgroup>
+                        <col class="wTitle">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Options</th>
+                            <th>Default</th>
+                            <th>Optional</th>
+                            <th>Descriptions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>doWhat</td>
+                            <td>String</td>
+                            <td>-</td>
+                            <td>'confirm'</td>
+                            <td>Y</td>
+                            <td class="text-left">'confirm' or 'done'</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>String</td>
+                            <td>-</td>
+                            <td></td>
+                            <td>Y</td>
+                            <td class="text-left">string or html</td>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>String</td>
+                            <td>-</td>
+                            <td></td>
+                            <td>Y</td>
+                            <td class="text-left">string or html</td>
+                        </tr>
+                        <tr>
+                            <td>btn</td>
+                            <td>Object</td>
+                            <td class="sub-table">
+                                <table class="pre-table">
+                                    <colgroup>
+                                        <col class="wTitle">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Options</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>confirm</td>
+                                            <td>Object</td>
+                                            <td class="sub-table">
+                                                <table class="pre-table">
+                                                    <colgroup>
+                                                        <col class="wTitle">
+                                                    </colgroup>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Type</th>
+                                                            <th>Default</th>
+                                                            <th>Descriptions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>text</td>
+                                                            <td>String</td>
+                                                            <td>'확인'</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>className</td>
+                                                            <td>String</td>
+                                                            <td></td>
+                                                            <td>multiple example 'name name2'</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>cancel</td>
+                                            <td>Object</td>
+                                            <td class="sub-table">
+                                                <table class="pre-table">
+                                                    <colgroup>
+                                                        <col class="wTitle">
+                                                    </colgroup>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Type</th>
+                                                            <th>Default</th>
+                                                            <th>Descriptions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>text</td>
+                                                            <td>String</td>
+                                                            <td>'아니요'</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>className</td>
+                                                            <td>String</td>
+                                                            <td></td>
+                                                            <td>multiple example 'name name2'</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>close</td>
+                                            <td>Boolean</td>
+                                            <td>
+                                                'close X button' true or false
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>btn.confirm.text : '확인',<br>
+                                btn.cancel.text:'아니요'</td>
+                            <td>Y</td>
+                            <td class="text-left"></td>
+                        </tr>
+                        <tr>
+                            <td>custom</td>
+                            <td>Object</td>
+                            <td class="sub-table">
+                                <table class="pre-table">
+                                    <colgroup>
+                                        <col class="wTitle">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Options</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>size</td>
+                                            <td>String</td>
+                                            <td class="sub-table">
+                                                <table class="pre-table">
+                                                    <colgroup>
+                                                        <col class="wTitle">
+                                                    </colgroup>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Type</th>
+                                                            <th>Default</th>
+                                                            <th>Descriptions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>text</td>
+                                                            <td>String</td>
+                                                            <td></td>
+                                                            <td>s size(390px)<br>
+                                                                m size(500px)<br>
+                                                                l size(800px)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>width</td>
+                                                            <td>String</td>
+                                                            <td></td>
+                                                            <td>'00px'</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td></td>
+                            <td>Y</td>
+                            <td class="text-left"></td>
+                        </tr>
+                        <tr>
+                            <td>multi</td>
+                            <td>Boolean</td>
+                            <td>-</td>
+                            <td>false</td>
+                            <td>Y</td>
+                            <td class="text-left">
+                                이중팝업 가능여부<br>
+                                <br>
+                                false : callback에 상관없이 팝업 닫기/확인 버튼 클릭시 기존 modal닫힘<br>
+                                true : callback(confirm/cancel)이 없으면 기존 modal닫힘, callback있으면 해당callback에서 따로 remove()필요
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>confirmDoneCallBack(function)</td>
+                            <td>function()</td>
+                            <td>-</td>
+                            <td></td>
+                            <td>Y</td>
+                            <td class="text-left">
+                                multi:false(default) -> callback에 상관없이 팝업 닫기/확인 버튼 클릭시 기존 modal닫힘<br>
+                                multi:true -> callback이 없으면 기존 modal닫힘, callback있으면 해당callback에서 따로 remove()필요
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>cancelCallBack(function)</td>
+                            <td>function()</td>
+                            <td>-</td>
+                            <td></td>
+                            <td>Y</td>
+                            <td class="text-left">
+                                multi:false(default) -> callback에 상관없이 팝업 닫기/확인 버튼 클릭시 기존 modal닫힘<br>
+                                multi:true -> callback이 없으면 기존 modal닫힘, callback있으면 해당callback에서 따로 remove()필요
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <h1>Methods</h1>
+                <table class="pre-table">
+                    <colgroup>
+                        <col class="wTitle">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Descriptions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>showModal(Object)</td>
+                            <td class="text-left">Object:options</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td class="text-left">
+                                해당 모달 제거 <br>
+                                multi:true, callback 완료후 remove() 제거 가능</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                    </tbody>
+                </table>
+
+
+                <h1>Example</h1>
+                <article class="example1">
+                    <pre><code class="javascript">
+                        const modal = new Modal();
+                        modal.showModal({
+                            doWhat: 'confirm/done',
+                            header: '아이디 찾기',
+                            title: '선택하신 서비스를<br> 신청하시겠습니까?',
+                            btn: {             //    (optional)  -> default text : "확인"/"아니요"         
+                                confirm: {
+                                    text: '신청',
+                                    className : 'btn main' //여러개 가능 
+                                },
+                                cancel: {
+                                    text: '닫기',
+                                    className: 'close'
+                                }
+                            },
+                            custom : {               //  (optional)
+                                size : 's/m/l',      
+                                width :  '00px'      
+                            },
+                            className: 'className1 className2',  //여러개 가능 
+                            multi : true/false,   //-> false면 callback에 상관없이  팝업 닫기/확인 버튼 클릭시 기존 modal닫힘
+                                                  //   true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 remove()필요
+                            confirmDoneCallBack: function () {   //(optional) -> 확인버튼    //-> callBack이 없으면 모달 닫기 default
+
+
+                                modal.remove();  //multi : true일때 -> 기존 모달(modal) 닫기
+                                const alertModal = new Modal();   //새 모달 객체 생성
+                                alertModal.showAlertModal({
+                                    doWhat: 'done',
+                                    title: '확인',
+                                    btn: {
+                                        confirm: {
+                                            text: '신청'
+                                        }
+                                    },
+                                })
+
+
+                            },
+                            cancelCallBack: function () {    ////(optional)  -> callBack이 없고 multi:false(default)면 모달 닫기 default
+                                console.log('취소')
+                            }
+                        });
+                    </code></pre>
+                </article>
+
                 <article>
-                    <h1>Options</h1>
-                    <table class="pre-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th></th>
-                                <th colspan="2">Default</th>
-                                <th>Descriptions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>doWhat</td>
-                                <td></td>
-                                <td>confirm</td>
-                                <td>confirm/cancel</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>header</td>
-                                <td></td>
-                                <td></td>
-                                <td>string/html</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>title</td>
-                                <td></td>
-                                <td></td>
-                                <td>string/html</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                        <tbody>
-
-                        </tbody>
-
-                    </table>
 
 
 
@@ -107,7 +440,7 @@
     </div>
     <!-- //#wrap -->
 
-    <script src="/js/modal/modal.js"></script>
+    <!-- <script src="/js/modal/modal.js"></script> -->
     <!-- git에 올릴때 경로 -->
     <script src="/modal.js/js/modal/modal.js"></script>
     <script>
@@ -124,6 +457,7 @@
                         text: '신청',
                         className: 'btn main'
                     },
+                    close: false,
                 },
                 custom: {
                     size: 's',
@@ -277,6 +611,7 @@
                                 }
                             },
                             confirmDoneCallBack: function () {
+                                modal.remove();
                                 modal2.remove();
                             },
                             cancelCallBack: function () {

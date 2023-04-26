@@ -107,7 +107,7 @@ class Modal {
 
         //X닫기버튼 옵션
         if (this.options?.btn?.close === false) {
-            this.modal.querySelector('.modalCancelIcon').style.display = 'none';
+            this.modal.querySelector('.modalCancelIcon_content').style.display = 'none';
         }
 
         //scrollTop

@@ -130,6 +130,8 @@
 
 .modal-wrap .pop-header {
     background-color: #fff;
+    color: #000;
+    font-weight: 600;
 }
 
 .modal-wrap .btn-layerPop-close {
