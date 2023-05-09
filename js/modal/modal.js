@@ -62,36 +62,70 @@ class Modal {
         // this.multiful
     }
 
-
-    showModal = (options) => {
-        const alertPopModal = {
-            'confirm': ['.modalCancel_content', '.btnAlertConfirm_content'],
-            'done': ['.modalDone_content']
-        }
+    showModal(options) {
         this.options = options;
-        this.#makeDiv('content');
+        this.#makeDiv();
+        this.#makeModal();
+        this.#actionModalOptions();
+    }//showModal
 
-        const optionsTitle = options?.title ? `<div class="pop-message">${options?.title || ''}</div>` : '';
-        const modalHtml = ` <div class="pop-header">${options.header || ''}</div>
+
+    #makeDiv() {
+        const alertModal = document.createElement('div');
+        const alertBg = document.createElement('div');
+        alertModal.classList.add('modal-wrap');
+        alertModal.classList.add(`content-modal`);
+        if (!this.options?.content) {
+            alertModal.classList.add(`alert-modal`);
+        }
+        const classNameList = this.options?.className?.split(' ') || [];
+        classNameList.forEach(function (item) {
+            alertModal.classList.add(item);
+        });
+
+        alertBg.classList.add(`content-bg`);
+        this.modal = alertModal;
+        this.bg = alertBg;
+
+        //사이즈 기본값
+        if (this.options?.custom?.size) {
+            const sizeObj = {
+                s: '390px',
+                m: '500px',
+                l: '800px'
+            }
+            this.modal.style.width = sizeObj[`${this.options?.custom?.size || s}`];
+        }
+        //사이즈 지정값
+        if (this.options?.custom?.width) {
+            this.modal.style.width = this.options?.custom?.width;
+        }
+    }
+
+    #makeModal() {
+        const optionsTitle = this.options?.title ? `<div class="pop-message">${this.options?.title || ''}</div>` : '';
+        const modalHtml = ` <div class="pop-header">${this.options.header || ''}</div>
                             <button class="modal_btn btn-layerPop-close modalCancelIcon_content" type="button" id="">
                                 X
                             </button>
                             <div class="layerPop-inner">
-                                ${optionsTitle}
+                                ${this.optionsTitle}
                                 <div class="pop-content">
-                                    ${options.content || ''}
+                                    ${this.options.content || ''}
                                 </div>
                                 <div class="btn-wrap">
-                                    <button class="modal_btn cancel modalCancel_content ${options.btn?.cancel?.className || ''}" id=""  style="display:none">${options.btn?.cancel?.text || '아니요'}</button>
-                                    <button class="modal_btn confirm default btnAlertConfirm_content ${options.btn?.confirm?.className || ''}" id=""  style="display:none">${options.btn?.confirm?.text || '확인'}</button>
-                                    <button class="modal_btn done default modalDone_content ${options.btn?.confirm?.className || ''}" id="" style="width:100%; display:none">${options.btn?.confirm?.text || '확인'}</button>
+                                    <button class="modal_btn cancel modalCancel_content ${this.options.btn?.cancel?.className || ''}" id=""  style="display:none">${this.options.btn?.cancel?.text || '아니요'}</button>
+                                    <button class="modal_btn confirm default btnAlertConfirm_content ${this.options.btn?.confirm?.className || ''}" id=""  style="display:none">${this.options.btn?.confirm?.text || '확인'}</button>
+                                    <button class="modal_btn done default modalDone_content ${this.options.btn?.confirm?.className || ''}" id="" style="width:100%; display:none">${this.options.btn?.confirm?.text || '확인'}</button>
                                 </div>
                             </div>`
         this.modal.innerHTML = modalHtml;
 
         this.body.appendChild(this.modal);
         this.body.appendChild(this.bg);
+    }
 
+    #actionModalOptions() {
         //multiful 팝업 z-index
         const DEFAULT_BG_ZINDEX = 10;
         const DEFAULT_MODAL_ZINDEX = 11;
@@ -115,18 +149,21 @@ class Modal {
         this.body.classList.add('not_scroll');
 
         //doWhat에 따른 button 보이기 (done/confirm)
-        alertPopModal[options.doWhat || 'confirm'].forEach((btnList) => {
+        const alertPopModal = {
+            'confirm': ['.modalCancel_content', '.btnAlertConfirm_content'],
+            'done': ['.modalDone_content']
+        }
+        alertPopModal[this.options.doWhat || 'confirm'].forEach((btnList) => {
             //this.modal 사용을 위해 arrow funs
             this.modal.querySelector(btnList).style.display = 'block';
         });
-
 
 
         //이중팝업 this.options.multi
         const modalBtnWrap = this.modal.querySelectorAll('button.modal_btn');
         if (this.options.multi) {
             //둘다 없을때 -> 다 막기
-            if (!options.confirmDoneCallBack && !options.cancelCallBack) {
+            if (!this.options.confirmDoneCallBack && !this.options.cancelCallBack) {
                 modalBtnWrap.forEach((buttons) => {
                     buttons.addEventListener('click', () => {
                         this.remove();
@@ -134,7 +171,7 @@ class Modal {
                 });
             }
             //confirm만 있을때
-            if (options.confirmDoneCallBack && !options.cancelCallBack) {
+            if (this.options.confirmDoneCallBack && !this.options.cancelCallBack) {
                 modalBtnWrap.forEach((buttons) => {
                     if (!buttons.className.includes('modalDone_content') && !buttons.className.includes('btnAlertConfirm_content')) {
                         buttons.addEventListener('click', () => {
@@ -144,7 +181,7 @@ class Modal {
                 });
             }
             //cancel만 있을때
-            if (options.cancelCallBack && !options.confirmDoneCallBack) {
+            if (this.options.cancelCallBack && !this.options.confirmDoneCallBack) {
                 modalBtnWrap.forEach((buttons) => {
                     if (!buttons.className.includes('modalCancel_content') && !buttons.className.includes('modalCancelIcon_content')) {
                         buttons.addEventListener('click', () => {
@@ -166,62 +203,24 @@ class Modal {
         }
 
 
-
         //callBack 적용
         const alertBtnWrap = this.modal.querySelector('.layerPop-inner .btn-wrap');
-        if (options.doWhat === 'confirm') {
-            alertBtnWrap.querySelector('.btnAlertConfirm_content').addEventListener('click', options.confirmDoneCallBack);
+        if (this.options.doWhat === 'confirm') {
+            alertBtnWrap.querySelector('.btnAlertConfirm_content').addEventListener('click', this.options.confirmDoneCallBack);
         } else {
-            alertBtnWrap.querySelector('.modalDone_content').addEventListener('click', options.confirmDoneCallBack);
+            alertBtnWrap.querySelector('.modalDone_content').addEventListener('click', this.options.confirmDoneCallBack);
 
         }
-        if (options.cancelCallBack) {
-            alertBtnWrap.querySelector('.modalCancel_content').addEventListener('click', options.cancelCallBack); //취소/아니요버튼
-            this.modal.querySelector('.modalCancelIcon_content').addEventListener('click', options.cancelCallBack); //X닫기버튼
-        }
-    }//showContentModal
-
-
-
-
-
-
-
-
-
-
-
-    #makeDiv = (modal) => {
-        const alertModal = document.createElement('div');
-        const alertBg = document.createElement('div');
-        alertModal.classList.add('modal-wrap');
-        alertModal.classList.add(`${modal}-modal`);
-        if (!this.options?.content) {
-            alertModal.classList.add(`alert-modal`);
-        }
-        const classNameList = this.options?.className?.split(' ') || [];
-        classNameList.forEach(function (item) {
-            alertModal.classList.add(item);
-        });
-
-        alertBg.classList.add(`${modal}-bg`);
-        this.modal = alertModal;
-        this.bg = alertBg;
-
-        //사이즈 기본값
-        if (this.options?.custom?.size) {
-            const sizeObj = {
-                s: '390px',
-                m: '500px',
-                l: '800px'
-            }
-            this.modal.style.width = sizeObj[`${this.options?.custom?.size || s}`];
-        }
-        //사이즈 지정값
-        if (this.options?.custom?.width) {
-            this.modal.style.width = this.options?.custom?.width;
+        if (this.options.cancelCallBack) {
+            alertBtnWrap.querySelector('.modalCancel_content').addEventListener('click', this.options.cancelCallBack); //취소/아니요버튼
+            this.modal.querySelector('.modalCancelIcon_content').addEventListener('click', this.options.cancelCallBack); //X닫기버튼
         }
     }
+
+    #getBodyScrollTop = () => {
+        this.bodyScrollTop = document.scrollingElement.scrollTop;
+    }
+
 
     remove = () => {
         this.modal.remove();
@@ -233,10 +232,6 @@ class Modal {
         //scrollTop
         window.scrollTo(0, this.bodyScrollTop);
 
-    }
-
-    #getBodyScrollTop = () => {
-        this.bodyScrollTop = document.scrollingElement.scrollTop;
     }
 } //Modal
 
