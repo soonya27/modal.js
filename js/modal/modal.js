@@ -1,4 +1,6 @@
 
+'use strict';
+
 /**
 * Modal  ver1.2 (alert+content 통합)
 * 작성자 : pyeon
@@ -97,7 +99,7 @@ class Modal {
                                 X
                             </button>
                             <div class="layerPop-inner">
-                                ${this.optionsTitle}
+                                ${optionsTitle}
                                 <div class="pop-content">
                                     ${this.options.content || ''}
                                 </div>
