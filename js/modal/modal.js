@@ -66,7 +66,8 @@ class Modal {
         this.options = options;
         this.#makeDiv();
         this.#makeModal();
-        this.#actionModalOptions();
+        this.#setStyle();
+        this.#setClickListener();
     }//showModal
 
 
@@ -87,19 +88,6 @@ class Modal {
         this.modal = alertModal;
         this.bg = alertBg;
 
-        //사이즈 기본값
-        if (this.options?.custom?.size) {
-            const sizeObj = {
-                s: '390px',
-                m: '500px',
-                l: '800px'
-            }
-            this.modal.style.width = sizeObj[`${this.options?.custom?.size || s}`];
-        }
-        //사이즈 지정값
-        if (this.options?.custom?.width) {
-            this.modal.style.width = this.options?.custom?.width;
-        }
     }
 
     #makeModal() {
@@ -125,7 +113,21 @@ class Modal {
         this.body.appendChild(this.bg);
     }
 
-    #actionModalOptions() {
+    #setStyle() {
+        //사이즈 기본값
+        if (this.options?.custom?.size) {
+            const sizeObj = {
+                s: '390px',
+                m: '500px',
+                l: '800px'
+            }
+            this.modal.style.width = sizeObj[`${this.options?.custom?.size || s}`];
+        }
+        //사이즈 지정값
+        if (this.options?.custom?.width) {
+            this.modal.style.width = this.options?.custom?.width;
+        }
+
         //multiful 팝업 z-index
         const DEFAULT_BG_ZINDEX = 10;
         const DEFAULT_MODAL_ZINDEX = 11;
@@ -157,8 +159,10 @@ class Modal {
             //this.modal 사용을 위해 arrow funs
             this.modal.querySelector(btnList).style.display = 'block';
         });
+    }
 
 
+    #setClickListener() {
         //이중팝업 this.options.multi
         const modalBtnWrap = this.modal.querySelectorAll('button.modal_btn');
         if (this.options.multi) {
@@ -216,6 +220,7 @@ class Modal {
             this.modal.querySelector('.modalCancelIcon_content').addEventListener('click', this.options.cancelCallBack); //X닫기버튼
         }
     }
+
 
     #getBodyScrollTop = () => {
         this.bodyScrollTop = document.scrollingElement.scrollTop;
