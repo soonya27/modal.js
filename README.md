@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/css/modal/modal.css">
 <script src="/js/modal/modal.js"></script>
 
-<button id="modalContent">content팝업 여러개 multiful</button>
+<button id="modalContent">modal open</button>
 ```
 
 ```javascript
