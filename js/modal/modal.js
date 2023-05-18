@@ -23,7 +23,7 @@ class Modal {
         this.body = document.querySelector('body');
         //this.modal
         //this.options
-        // this.multiful
+        // this.multifulModalsCnt  //생성당시 다른 모달 갯수
     }
 
     showModal(options) {
@@ -94,14 +94,14 @@ class Modal {
         //multiful 팝업 z-index
         const DEFAULT_BG_ZINDEX = 10;
         const DEFAULT_MODAL_ZINDEX = 11;
-        const existingContentModalCnt = document.querySelectorAll('.modal-wrap').length - 1;
-        if (existingContentModalCnt > 0) {
+        this.multifulModalsCnt = document.querySelectorAll('.modal-wrap').length - 1;
+        if (this.multifulModalsCnt > 0) {
             //이중팝업여부
             this.multiful = true;
             //modal
-            this.modal.style.zIndex = DEFAULT_MODAL_ZINDEX + (existingContentModalCnt * 2);
+            this.modal.style.zIndex = DEFAULT_MODAL_ZINDEX + (this.multifulModalsCnt * 2);
             //bg
-            this.bg.style.zIndex = DEFAULT_BG_ZINDEX + (existingContentModalCnt * 2);
+            this.bg.style.zIndex = DEFAULT_BG_ZINDEX + (this.multifulModalsCnt * 2);
         }
 
         //X닫기버튼 옵션
@@ -184,15 +184,12 @@ class Modal {
         }
     }
 
-
-
-
     remove = () => {
         this.modal.remove();
         this.bg.remove();
 
         //이중팝업 여부에 따라 body scroll 막기
-        this.multiful || this.body.classList.remove('not_scroll');
+        this.multifulModalsCnt > 0 || this.body.classList.remove('not_scroll');
 
         //scrollTop
         window.scrollTo(0, this.bodyScrollTop);
