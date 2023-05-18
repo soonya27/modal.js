@@ -110,7 +110,7 @@ class Modal {
         }
 
         //scrollTop
-        this.#getBodyScrollTop();
+        this.bodyScrollTop = document.scrollingElement.scrollTop;
         this.body.classList.add('not_scroll');
 
         //doWhat에 따른 button 보이기 (done/confirm)
@@ -185,9 +185,6 @@ class Modal {
     }
 
 
-    #getBodyScrollTop = () => {
-        this.bodyScrollTop = document.scrollingElement.scrollTop;
-    }
 
 
     remove = () => {
