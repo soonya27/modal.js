@@ -4,6 +4,7 @@
 /**
 * Modal  ver1.2 (alert+content 통합)
 * 작성자 : pyeon
+* gitgub : https://github.com/soonya27/modal.js
 * 이중 모달시 const alertModal = new Modal(); 새로 지정필요
 
 * multi : false (defualt)
@@ -14,46 +15,7 @@
 -- multi:true 여도 callback이 없으면 기본 닫힘
 --callBack options 지정시 modal(변수달라질수있음).remove(); 로 해당 모달 제거해줘야함
 
-* option 표 : https://docs.google.com/spreadsheets/d/1zzJNfwIMR7C1XvkGGnyNjaw3u_wrXxCPXGWsk3jLmSM/edit?usp=sharing
 */
-
-
-/*호출 예시))
-const modal = new Modal();
-modal.showModal({
-    doWhat: 'confirm',
-    header: '아이디 찾기',
-    title: '선택하신 서비스를<br> 신청하시겠습니까?',
-    btn: {                 
-        confirm: {
-            text: '신청'  -> default : '확인'
-        }
-    },
-    custom : {               
-        size : 's/m/l', 
-        width :  '00px'        (optional)
-    },
-    multi : true/false   -> false면 callback에 상관없이  팝업 닫기/확인 버튼 클릭시 기존 modal닫힘
-                            true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 remove()필요
-    confirmDoneCallBack: function () {   (optional) -> 확인버튼 
-        modal.showAlertModal({
-            doWhat: 'done',
-            title: '확인',
-            btn: {
-                confirm: {
-                    text: '신청'
-                }
-            },
-        })
-    },
-    cancelCallBack: function () {
-        console.log('취소')
-    }
-});
-*/
-
-
-
 
 class Modal {
     constructor() {
@@ -89,7 +51,6 @@ class Modal {
         alertBg.classList.add(`content-bg`);
         this.modal = alertModal;
         this.bg = alertBg;
-
     }
 
     #makeModal() {
