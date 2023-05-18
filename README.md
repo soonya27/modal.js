@@ -66,14 +66,15 @@ class Modal {
         this.body = document.querySelector('body');
         //this.modal
         //this.options
-        // this.multiful
+        // this.multifulModalsCnt  //생성당시 다른 모달 갯수
     }
 
     showModal(options) {
         this.options = options;
         this.#makeDiv();
         this.#makeModal();
-        this.#actionModalOptions();
+        this.#setStyle();
+        this.#setClickListener();
     }//showModal
 
 
@@ -93,20 +94,6 @@ class Modal {
         alertBg.classList.add(`content-bg`);
         this.modal = alertModal;
         this.bg = alertBg;
-
-        //사이즈 기본값
-        if (this.options?.custom?.size) {
-            const sizeObj = {
-                s: '390px',
-                m: '500px',
-                l: '800px'
-            }
-            this.modal.style.width = sizeObj[`${this.options?.custom?.size || s}`];
-        }
-        //사이즈 지정값
-        if (this.options?.custom?.width) {
-            this.modal.style.width = this.options?.custom?.width;
-        }
     }
 
     #makeModal() {
@@ -116,7 +103,7 @@ class Modal {
                                 X
                             </button>
                             <div class="layerPop-inner">
-                                ${this.optionsTitle}
+                                ${optionsTitle}
                                 <div class="pop-content">
                                     ${this.options.content || ''}
                                 </div>
@@ -132,18 +119,32 @@ class Modal {
         this.body.appendChild(this.bg);
     }
 
-    #actionModalOptions() {
+    #setStyle() {
+        //사이즈 기본값
+        if (this.options?.custom?.size) {
+            const sizeObj = {
+                s: '390px',
+                m: '500px',
+                l: '800px'
+            }
+            this.modal.style.width = sizeObj[`${this.options?.custom?.size || s}`];
+        }
+        //사이즈 지정값
+        if (this.options?.custom?.width) {
+            this.modal.style.width = this.options?.custom?.width;
+        }
+
         //multiful 팝업 z-index
         const DEFAULT_BG_ZINDEX = 10;
         const DEFAULT_MODAL_ZINDEX = 11;
-        const existingContentModalCnt = document.querySelectorAll('.modal-wrap').length - 1;
-        if (existingContentModalCnt > 0) {
+        this.multifulModalsCnt = document.querySelectorAll('.modal-wrap').length - 1;
+        if (this.multifulModalsCnt > 0) {
             //이중팝업여부
             this.multiful = true;
             //modal
-            this.modal.style.zIndex = DEFAULT_MODAL_ZINDEX + (existingContentModalCnt * 2);
+            this.modal.style.zIndex = DEFAULT_MODAL_ZINDEX + (this.multifulModalsCnt * 2);
             //bg
-            this.bg.style.zIndex = DEFAULT_BG_ZINDEX + (existingContentModalCnt * 2);
+            this.bg.style.zIndex = DEFAULT_BG_ZINDEX + (this.multifulModalsCnt * 2);
         }
 
         //X닫기버튼 옵션
@@ -152,7 +153,7 @@ class Modal {
         }
 
         //scrollTop
-        this.#getBodyScrollTop();
+        this.bodyScrollTop = document.scrollingElement.scrollTop;
         this.body.classList.add('not_scroll');
 
         //doWhat에 따른 button 보이기 (done/confirm)
@@ -164,8 +165,10 @@ class Modal {
             //this.modal 사용을 위해 arrow funs
             this.modal.querySelector(btnList).style.display = 'block';
         });
+    }
 
 
+    #setClickListener() {
         //이중팝업 this.options.multi
         const modalBtnWrap = this.modal.querySelectorAll('button.modal_btn');
         if (this.options.multi) {
@@ -224,17 +227,12 @@ class Modal {
         }
     }
 
-    #getBodyScrollTop = () => {
-        this.bodyScrollTop = document.scrollingElement.scrollTop;
-    }
-
-
     remove = () => {
         this.modal.remove();
         this.bg.remove();
 
         //이중팝업 여부에 따라 body scroll 막기
-        this.multiful || this.body.classList.remove('not_scroll');
+        this.multifulModalsCnt > 0 || this.body.classList.remove('not_scroll');
 
         //scrollTop
         window.scrollTo(0, this.bodyScrollTop);
