@@ -1,4 +1,4 @@
-# modal module js
+# modal module js  (vanilla Js)
 
 ### [githubpage](https://soonya27.github.io/modal.js/)
 
