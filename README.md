@@ -1,65 +1,102 @@
 # modal module js  (vanilla Js)
 
-### [githubpage](https://soonya27.github.io/modal.js/)
+## [Demo link](https://soonya27.github.io/modal.js/)
 
 
-### example
+## 🌟Features (주요 기능)
+
+- options Parameters{} 를 통해 option 설정가능
+- confirm(환인/취소), done(확인) 팝업 설정가능
+- header,title, btn 커스텀 가능
+- 이중,삼중 팝업 가능
+- btn에 따른 callback 처리
+
+
+## 🌟Tech Stack (기술 스택)
+
+- **Frontend:**
+  - Javascript
+
+- **Others:**
+  - Git (Version control)
+  - Prettier (Code formatting and static analysis)
+
+- **Deployment:**
+  - githubpage
+
+
+
+## 🌟Options
+| Name | Type | Options | Default | Optional | Descriptions |
+| --- | --- | --- | --- | --- | --- |
+| doWhat | String | - | 'confirm' | Y | 'confirm' or 'done' |
+| header | String | - |  | Y | string or html |
+| title | String | - |  | Y | string or html |
+| btn | Object | {confirm : {text:string, className : string},cancel : {text:string, className :string}}| btn.confirm.text : '확인',btn.cancel.text:'아니요' | Y |  |
+| custom | String | {size :string, width:string} |  | Y |  |
+| multi | Boolean | - | false | Y | 이중팝업 가능여부false : callback에 상관없이 팝업 닫기/확인 버튼 클릭시 기존 modal닫힘, true : callback(confirm/cancel)이 없으면 기존 modal닫힘, callback있으면 해당callback에서 따로remove()필요 |
+| confirmDoneCallBack | function() | - |  | Y | multi:false(default) -> callback에 상관없이 팝업 닫기/확인 버튼 클릭시 기존 modal닫힘 multi:true -> callback이 없으면 기존 modal닫힘, callback있으면 해당callback에서 따로 remove()필요 |
+| cancelCallBack | function() | - |  | 3 | multi:false(default) -> callback에 상관없이 팝업 닫기/확인 버튼 클릭시 기존 modal닫힘 multi:true -> callback이 없으면 기존 modal닫힘, callback있으면 해당callback에서 따로 remove()필요 |
+
+## 🌟How To Use
 ```html
+//css, js import
 <link rel="stylesheet" href="/css/modal/modal.css">
 <script src="/js/modal/modal.js"></script>
 
+//button 생성
 <button id="modalContent">modal open</button>
 ```
 
 ```javascript
-const modal = new Modal();
-modal.showModal({
-    doWhat: 'confirm/done',
-    header: '아이디 찾기',
-    title: '선택하신 서비스를<br> 신청하시겠습니까?',
-    btn: {             //    (optional)  -> default text : "확인"/"아니요"         
-        confirm: {
-            text: '신청',
-            className : 'btn main' //여러개 가능 
-        },
-        cancel: {
-            text: '닫기',
-            className: 'close'
-        }
-    },
-    custom : {               //  (optional)
-        size : 's/m/l',      
-        width :  '00px'      
-    },
-    className: 'className1 className2',  //여러개 가능 
-    multi : true/false,   //-> false면 callback에 상관없이  팝업 닫기/확인 버튼 클릭시 기존 modal닫힘
-                          //   true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 remove()필요
-    confirmDoneCallBack: function () {   //(optional) -> 확인버튼    //-> callBack이 없으면 모달 닫기 default
-
-
-        modal.remove();  //multi : true일때 -> 기존 모달(modal) 닫기
-        const alertModal = new Modal();   //새 모달 객체 생성
-        alertModal.showAlertModal({
-            doWhat: 'done',
-            title: '확인',
-            btn: {
-                confirm: {
-                    text: '신청'
-                }
+document.querySelector('#modalContent').addEventListener('click', () => {
+    const modal = new Modal();
+    modal.showModal({
+        doWhat: 'confirm/done',
+        header: '아이디 찾기',
+        title: '선택하신 서비스를<br> 신청하시겠습니까?',
+        btn: {             //    (optional)  -> default text : "확인"/"아니요"         
+            confirm: {
+                text: '신청',
+                className : 'btn main' //여러개 가능 
             },
-        })
-    },
-    cancelCallBack: function () {    ////(optional)  -> callBack이 없고 multi:false(default)면 모달 닫기 default
-        console.log('취소')
-    }
-});
+            cancel: {
+                text: '닫기',
+                className: 'close'
+            }
+        },
+        custom : {               //  (optional)
+            size : 's/m/l',      
+            width :  '00px'      
+        },
+        className: 'className1 className2',  //여러개 가능 
+        multi : true/false,   //-> false면 callback에 상관없이  팝업 닫기/확인 버튼 클릭시 기존 modal닫힘
+                            //   true면 callback이 없으면 자동 닫힘, callback있으면 해당callback에서 따로 remove()필요
+        confirmDoneCallBack: function () {   //(optional) -> 확인버튼    //-> callBack이 없으면 모달 닫기 default
 
+
+            modal.remove();  //multi : true일때 -> 기존 모달(modal) 닫기
+            const alertModal = new Modal();   //새 모달 객체 생성
+            alertModal.showAlertModal({
+                doWhat: 'done',
+                title: '확인',
+                btn: {
+                    confirm: {
+                        text: '신청'
+                    }
+                },
+            })
+        },
+        cancelCallBack: function () {    ////(optional)  -> callBack이 없고 multi:false(default)면 모달 닫기 default
+            console.log('취소')
+        }
+    });
+});
 ```
 
+## 🌟Class Code block
 
-### code
 ```javascript
-
 class Modal {
     constructor() {
         this.bg = `<div class="modal-bg"></div>`;
